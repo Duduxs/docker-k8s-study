@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  webservergo:
+    build: .
+    ports:
+      - "8093:8080"
+  nginx-2:
+    image: nginx:1.19.1-alpine
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+    ports:
+      - "8070:80"
