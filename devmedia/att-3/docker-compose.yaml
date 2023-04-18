@@ -1,0 +1,11 @@
+version: "3.1"
+
+services:
+  ubuntu_service:
+    container_name: ubuntu_container
+    build:
+      context: .
+      dockerfile: Dockerfile-Ubuntu
+    environment:
+      - NOME=Eduardo J.
+      - CARGO=Programador Java

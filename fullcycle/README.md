@@ -1,5 +1,4 @@
-Rodar com o compose: docker-compose up (Sobe tanto o app em go qnt o nginx)
-<br>
+
 Rodar sem o compose: {
 <br>
     docker build -t go-webserver . (Cria a img do go) <br>
