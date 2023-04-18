@@ -11,7 +11,7 @@ bash
 RUN echo && \ 
 echo "Installing sdkman library" && \
 echo && \
-apk add curl -s "https://get.sdkman.io" | bash && \
+curl -s "https://get.sdkman.io" | bash && \
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 RUN echo && \
