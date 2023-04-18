@@ -15,17 +15,17 @@ curl -s "https://get.sdkman.io" | bash && \
 source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 RUN echo && \
+echo "Installing JDK 17" && \
+echo && \
+sdk install java 17.0.5-zulu
+
+RUN echo && \
 echo "Installing Quarkus Latest CLI" && \
 echo && \
 sdk install quarkus && \
 QUARKUS_VERSION="$(quarkus --version)" && \
 export QUARKUS_VERSION && \
 echo "Quarkus version installed $QUARKUS_VERSION"
-
-RUN echo && \
-echo "Installing JDK 17" && \
-echo && \
-sdk install java 17.0.5-zulu
 
 RUN echo && \
 echo "Creating quarkus project" && \
