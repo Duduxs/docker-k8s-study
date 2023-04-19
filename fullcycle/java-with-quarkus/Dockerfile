@@ -1,36 +1,26 @@
-FROM alpine:3.17.3
+FROM debian:unstable-slim
+
+SHELL ["/bin/bash", "-c"]
 
 WORKDIR /home
 
-RUN printf "\nInstalling zip, bash and curl libraries\n" && \
-apk add zip && \
-apk add curl && \
-apk add bash && \
-bash
+RUN echo "Installing SDKMAN and its dependencies" && \
+apt-get update && \
+apt-get install curl bash zip unzip -y
 
-RUN echo && \ 
-echo "Installing sdkman library" && \
-echo && \
-curl -s "https://get.sdkman.io" | bash && \
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+RUN curl -s "https://get.sdkman.io" | bash
 
-RUN echo && \
+RUN source "$HOME/.sdkman/bin/sdkman-init.sh" && \
 echo "Installing JDK 17" && \
-echo && \
-sdk install java 17.0.5-zulu
-
-RUN echo && \
-echo "Installing Quarkus Latest CLI" && \
-echo && \
+sdk install java 17.0.5-zulu && \
+echo "Installing Latest Quarkus CLI" && \
 sdk install quarkus && \
 QUARKUS_VERSION="$(quarkus --version)" && \
 export QUARKUS_VERSION && \
-echo "Quarkus version installed $QUARKUS_VERSION"
-
-RUN echo && \
+echo "Quarkus version installed $QUARKUS_VERSION" && \
 echo "Creating quarkus project" && \
-echo && \
 quarkus create cli --description="project that uses a quarkus project inside a container" --name="quarkus-with-container" -o /home/quarkus-project --gradle --java=17 org.edudev:quarkus-with-container && \
+ls && \
 cd quarkus-project/quarkus-with-container/ && \
 quarkus ext add quarkus-rest-client
 
