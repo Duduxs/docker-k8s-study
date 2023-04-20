@@ -1,10 +1,10 @@
 FROM alpine:3.17.3
 
 RUN echo "Installing necessary dependencies" && \
-apk add --update alpine-sdk && apk add bash zip
+apk add bash zip curl
 
-#Change default shell 
-SHELL ["bash", "/bin/sh"]
+#Change default shell sh to bash
+SHELL ["/bin/bash", "-c"]
 
 RUN echo "Installing JDK an Quarkus-CLI" && \
 curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/ && \
@@ -15,9 +15,11 @@ RUN source ~/.bashrc
 
 WORKDIR /home
 
-RUN quarkus create app com.edudev:quarkus-in-container:1.0
+ENTRYPOINT ["quarkus create app com.edudev:quarkus-in-container:1.0"]
 
-ENTRYPOINT ["cd quarkus-in-container/ && quarkus"]
+WORKDIR quarkus-in-container/
+
+ENTRYPOINT ["quarkus"]
 CMD ["dev"] 
 
 
