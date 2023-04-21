@@ -1,5 +1,9 @@
 FROM alpine:3.17.3
 
+ENV PROFILE=dev
+ENV HOST=0.0.0.0
+ENV PORT=8080
+
 RUN echo "Installing necessary dependencies" && \
 apk add bash zip curl
 
@@ -18,8 +22,11 @@ quarkus create app com.edudev:quarkus-in-container:1.0
 
 WORKDIR quarkus-in-container/
 
-ENTRYPOINT source ~/.bashrc && quarkus
-CMD dev
+RUN echo "Building the app" && \
+source ~/.bashrc && \
+quarkus build
 
-EXPOSE 8080
+CMD source ~/.bashrc && quarkus $PROFILE -Dquarkus.http.host=$HOST -Dquarkus.http.port=$PORT
+
+EXPOSE $PORT
 
