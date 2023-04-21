@@ -24,9 +24,14 @@ WORKDIR quarkus-in-container/
 
 RUN echo "Building the app" && \
 source ~/.bashrc && \
-quarkus build
+quarkus build 
 
-CMD source ~/.bashrc && quarkus $PROFILE -Dquarkus.http.host=$HOST -Dquarkus.http.port=$PORT
+RUN echo "Showing current quarkus and JDK version" && \
+source ~/.bashrc && \
+java --version && \
+quarkus --version
+
+ENTRYPOINT ["bash", "-c", "source ~/.bashrc && quarkus $PROFILE -Dquarkus.http.host=$HOST -Dquarkus.http.port=$PORT"]
 
 EXPOSE $PORT
 
