@@ -2,7 +2,10 @@ version: "3.0"
 
 services:
         laravel:
-                image: duduxs/php-with-laravel:prd
+                build:
+                        context: . 
+                        dockerfile: Dockerfile-multistage-building.prd
+                image: my-new-php-with-laravel-image-recently-builded
                 container_name: laravel
                 networks: 
                         - laranet
