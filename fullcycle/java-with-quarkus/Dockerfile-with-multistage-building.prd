@@ -1,4 +1,4 @@
-FROM alpine:3.17.3
+FROM alpine:3.17.3 as first_stage
 
 ENV PROFILE=dev
 ENV HOST=0.0.0.0
@@ -24,14 +24,26 @@ WORKDIR quarkus-in-container/
 
 RUN echo "Building the app" && \
 source ~/.bashrc && \
-quarkus build
+quarkus build -Dquarkus.package.type=uber-jar
 
 RUN echo "Showing current quarkus and JDK version" && \
 source ~/.bashrc && \
 java --version && \
 quarkus --version
 
-ENTRYPOINT ["bash", "-c", "source ~/.bashrc && quarkus $PROFILE -Dquarkus.http.host=$HOST -Dquarkus.http.port=$PORT"]
+
+
+FROM alpine:3.17.3 as second_stage
+
+ENV HOST=0.0.0.0
+ENV PORT=8080
+
+WORKDIR /home/projects/quarkus/jar
+COPY --from=first_stage /home/quarkus-in-container/target/quarkus-in-container-1.0-runner.jar . 
+
+RUN apk add openjdk17
+
+ENTRYPOINT java -Dquarkus.http.host=$HOST -Dquarkus.http.port=$PORT -jar quarkus-in-container-1.0-runner.jar
 
 EXPOSE $PORT
 
