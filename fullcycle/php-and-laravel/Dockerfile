@@ -15,7 +15,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 #Create 'app' project laravel
 RUN php composer.phar create-project laravel/laravel app
 
-#put container context folders inside app/ (created by below command)
+#put container context folders inside app/ (created by above command)
 WORKDIR app/
 
 #Execute project
