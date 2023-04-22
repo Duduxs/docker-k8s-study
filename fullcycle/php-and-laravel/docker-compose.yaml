@@ -10,6 +10,9 @@ services:
                 networks: 
                         - laranet
         nginx:
+                build:
+                        context: ../nginx/
+                        dockerfile: Dockerfile.prd
                 image: duduxs/nginx:prd
                 container_name: nginx
                 networks:
