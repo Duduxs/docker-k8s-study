@@ -19,6 +19,7 @@ services:
                 build:
                       context: ../node/
                 image: my-node-image-builded-by-docker-compose
+                entrypoint: dockerize -wait tcp://mysql:3306 --timeout 20s docker-entrypoint.sh
                 volumes:
                         - ../node/:/my-app
                 networks:
@@ -26,6 +27,8 @@ services:
                 ports:
                         - "3000:3000"
                 tty: true
+                depends_on: 
+                        - database
 
 
 networks:
