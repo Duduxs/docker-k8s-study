@@ -12,9 +12,21 @@ services:
                 environment:
                         - MYSQL_DATABASE=nodedb
                         - MYSQL_ROOT_PASSWORD=root
-                        - MYSQL_USER=root
                 networks:
                         - node-network
+        app:
+                container_name: node                
+                build:
+                      context: ../node/
+                image: my-node-image-builded-by-docker-compose
+                volumes:
+                        - ../node/:/my-app
+                networks:
+                        - node-network
+                ports:
+                        - "3000:3000"
+                tty: true
+
 
 networks:
         node-network:
