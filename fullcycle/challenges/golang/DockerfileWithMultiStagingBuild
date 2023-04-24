@@ -1,0 +1,16 @@
+FROM golang:alpine3.17 as step_one
+
+#Create file and attribute some content to it
+RUN touch src/edu.go && \ 
+echo 'package main; import "fmt"; func main() {fmt.Println("Full Cycle Rocks!")}' >> src/edu.go
+
+#Compile the program and get the binary inside /bin folder
+RUN go install src/edu.go
+
+##Step two
+FROM scratch as step_two
+
+COPY --from=step_one /go/bin/edu /home/edu
+
+ENTRYPOINT ["/home/edu"]
+
