@@ -1,0 +1,34 @@
+version: '3.0'
+
+services:
+        database:
+                container_name: mysql
+                restart: always
+                image: mysql
+                command: --init-file /eduardo/init.sql
+                networks:
+                        - eduardo-network
+                volumes:
+                        - ./mysql-data/volume:/var/lib/mysql:rw
+                        - ./mysql-data/script:/eduardo/
+                environment:
+                        MYSQL_ROOT_PASSWORD: eduardo
+        app:
+                container_name: node
+                restart: always
+                image: node-local
+                command: node index.js
+                entrypoint: dockerize -wait tcp://mysql:3306 --timeout 20s                        
+                build:
+                        context: ./node-data/
+                        dockerfile: node-Dockerfile
+                ports: 
+                        - 3000:3000
+                networks:
+                        -  eduardo-network
+                depends_on:
+                        - database
+
+networks:
+        eduardo-network:
+                driver: bridge

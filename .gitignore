@@ -1,2 +1,4 @@
 fullcycle/database/mysql-volume/
 fullcycle/node/node_modules/
+fullcycle/challenges/nginx/node-data/node_modules
+fullcycle/challenges/.Dockerfile.swp
