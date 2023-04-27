@@ -9,8 +9,8 @@ services:
                 networks:
                         - eduardo-network
                 volumes:
-                        - ./mysql-data/volume:/var/lib/mysql:rw
-                        - ./mysql-data/script:/eduardo/
+                        - eduardo-volume:/var/lib/mysql:rw
+                        - ./mysql-data/:/eduardo/
                 environment:
                         MYSQL_ROOT_PASSWORD: eduardo
         app:
@@ -32,3 +32,5 @@ services:
 networks:
         eduardo-network:
                 driver: bridge
+volumes:
+        eduardo-volume:
