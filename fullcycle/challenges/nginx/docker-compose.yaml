@@ -29,7 +29,21 @@ services:
                 depends_on:
                         - database
 
-networks:
+        nginx:
+                container_name: nginx
+                restart: always
+                image: nginx-local
+                tty: true
+                build: 
+                        context: nginx-data/
+                        dockerfile: nginx-Dockerfile
+                ports:
+                        - 8080:80
+                networks:
+                        - eduardo-network
+                depends_on:
+                        - app 
+networks:               
         eduardo-network:
                 driver: bridge
 volumes:
