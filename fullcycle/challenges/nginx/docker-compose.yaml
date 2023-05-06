@@ -51,4 +51,4 @@ networks:
 volumes:
         eduardo-volume:
         node-volume:
-                name: node-volume
+   
