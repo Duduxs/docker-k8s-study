@@ -22,8 +22,6 @@ services:
                 build:
                         context: ./node-data/
                         dockerfile: node-Dockerfile
-                volumes:
-                        - node-volume:/home
                 ports: 
                         - 3000:3000
                 networks:
@@ -50,5 +48,4 @@ networks:
                 driver: bridge
 volumes:
         eduardo-volume:
-        node-volume:
    
