@@ -1,4 +1,4 @@
-fullcycle/database/mysql-volume/
-fullcycle/node/node_modules/
-fullcycle/challenges/nginx/node-data/node_modules
-fullcycle/challenges/.Dockerfile.swp
+fullcycle-docker/database/mysql-volume/
+fullcycle-docker/node/node_modules/
+fullcycle-docker/challenges/nginx/node-data/node_modules
+fullcycle-docker/challenges/.Dockerfile.swp
